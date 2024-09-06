@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+const bottomContainerHeight = 80.0;
+const bottomContainerColor = Color(0xFFEB1555);
+const widgetColor = Color(0XFF1D1E33);
+
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
 
@@ -21,10 +25,10 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(color: Color(0XFF1D1E33)),
+                  child: ReusableCard(color: widgetColor),
                 ),
                 Expanded(
-                  child: ReusableCard(color: Color(0XFF1D1E33)),
+                  child: ReusableCard(color: widgetColor),
                 ),
               ],
             ),
@@ -33,7 +37,7 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(color: Color(0XFF1D1E33)),
+                  child: ReusableCard(color: widgetColor),
                 )
               ],
             ),
@@ -42,14 +46,20 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(color: Color(0XFF1D1E33)),
+                  child: ReusableCard(color: widgetColor),
                 ),
                 Expanded(
-                  child: ReusableCard(color: Color(0XFF1D1E33)),
+                  child: ReusableCard(color: widgetColor),
                 ),
               ],
             ),
           ),
+          Container(
+            color: bottomContainerColor,
+            margin: EdgeInsets.only(top: 10),
+            width: double.infinity,
+            height: bottomContainerHeight,
+          )
         ],
       ),
     );
@@ -57,8 +67,8 @@ class _InputPageState extends State<InputPage> {
 }
 
 class ReusableCard extends StatelessWidget {
-  Color? color;
-  ReusableCard({super.key, this.color});
+  final Color color;
+  ReusableCard({super.key, required this.color});
   @override
   Widget build(BuildContext context) {
     return Container(
