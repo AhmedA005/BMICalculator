@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const bottomContainerHeight = 80.0;
 const bottomContainerColor = Color(0xFFEB1555);
@@ -20,43 +21,52 @@ class _InputPageState extends State<InputPage> {
         centerTitle: true,
       ),
       body: Column(
-        children: [
-          Expanded(
+         children: [
+          const Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(color: widgetColor),
+                  child: ReusableCard(
+                    color: widgetColor,
+                    cardChild: IconContent(icon: FontAwesomeIcons.mars, gender: 'MALE'),
+                  ),
                 ),
                 Expanded(
-                  child: ReusableCard(color: widgetColor),
+                  child: ReusableCard(
+                    color: widgetColor,
+                    cardChild: IconContent(icon: FontAwesomeIcons.earthAfrica, gender: 'FEMALE'),
+                  ),
                 ),
               ],
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(color: widgetColor),
+                  child: ReusableCard(
+                      color: widgetColor, cardChild: FaIcon(Icons.male)),
                 )
               ],
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(color: widgetColor),
+                  child: ReusableCard(
+                      color: widgetColor, cardChild: FaIcon(Icons.male)),
                 ),
                 Expanded(
-                  child: ReusableCard(color: widgetColor),
+                  child: ReusableCard(
+                      color: widgetColor, cardChild: FaIcon(Icons.male)),
                 ),
               ],
             ),
           ),
           Container(
             color: bottomContainerColor,
-            margin: EdgeInsets.only(top: 10),
+            margin: const EdgeInsets.only(top: 10),
             width: double.infinity,
             height: bottomContainerHeight,
           )
@@ -66,9 +76,41 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
+class IconContent extends StatelessWidget {
+  const IconContent({super.key, required this.icon, required this.gender});
+  final IconData icon;
+  final String gender;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {},
+          icon:  FaIcon(
+            icon,
+            size: 80,
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+         Text(
+          gender,
+          style: const TextStyle(
+            fontSize: 30,
+            color: Color(0xFF8D8E98),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class ReusableCard extends StatelessWidget {
   final Color color;
-  ReusableCard({super.key, required this.color});
+  final Widget cardChild;
+  const ReusableCard({super.key, required this.color, required this.cardChild});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,6 +119,7 @@ class ReusableCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: color,
       ),
+      child: cardChild,
     );
   }
 }
