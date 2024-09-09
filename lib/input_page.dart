@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'constants.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
-
-const bottomContainerHeight = 80.0;
-const bottomContainerColor = Color(0xFFEB1555);
-const activeCardColor = Color(0XFF111328);
-const inactiveCardColor = Color(0XFF1D1E33);
 
 enum Gender { male, female }
 
@@ -18,9 +15,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = inactiveCardColor;
-  Color femaleCardColor = inactiveCardColor;
   Gender? selectedGender;
+  double height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -35,69 +31,117 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         selectedGender = Gender.male;
                       });
                     },
-                    child: ReusableCard(
-                      color: selectedGender == Gender.male
-                          ? activeCardColor
-                          : inactiveCardColor,
-                      cardChild: const IconContent(
-                          icon: FontAwesomeIcons.mars, gender: 'MALE'),
-                    ),
+                    color: selectedGender == Gender.male
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
+                    cardChild: const IconContent(
+                        icon: FontAwesomeIcons.mars, gender: 'MALE'),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         selectedGender = Gender.female;
                       });
                     },
-                    child: ReusableCard(
-                      color: selectedGender == Gender.female
-                          ? activeCardColor
-                          : inactiveCardColor,
-                      cardChild: const IconContent(
-                          icon: FontAwesomeIcons.venus, gender: 'FEMALE'),
-                    ),
+                    color: selectedGender == Gender.female
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
+                    cardChild: const IconContent(
+                        icon: FontAwesomeIcons.venus, gender: 'FEMALE'),
                   ),
                 ),
               ],
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Row(
               children: [
                 Expanded(
                   child: ReusableCard(
-                      color: activeCardColor, cardChild: FaIcon(Icons.male)),
+                    color: kInactiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'HEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              height.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            const Text(
+                              'cm',
+                              style: kLabelTextStyle,
+                            )
+                          ],
+                        ),
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            inactiveTrackColor: kSliderInactiveColor,
+                            thumbColor: const Color(0xFFEB1555),
+                            overlayColor: const Color(0x39EB1555),
+                            activeTrackColor: Colors.white,
+                            thumbShape: const RoundSliderThumbShape(
+                              enabledThumbRadius: 15,
+                            ),
+                            overlayShape: const RoundSliderOverlayShape(
+                                overlayRadius: 24),
+                          ),
+                          child: Slider(
+                            value: height,
+                            onChanged: (double newHeight) {
+                              setState(() {
+                                height = newHeight.floorToDouble();
+                              });
+                            },
+                            min: 140,
+                            max: 210,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 )
               ],
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Row(
               children: [
                 Expanded(
                   child: ReusableCard(
-                      color: activeCardColor, cardChild: FaIcon(Icons.male)),
+                    onPress: () {},
+                    color: kInactiveCardColor,
+                  ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                      color: activeCardColor, cardChild: FaIcon(Icons.male)),
+                    onPress: () {},
+                    color: kInactiveCardColor,
+                  ),
                 ),
               ],
             ),
           ),
           Container(
-            color: bottomContainerColor,
+            color: kBottomContainerColor,
             margin: const EdgeInsets.only(top: 10),
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           )
         ],
       ),

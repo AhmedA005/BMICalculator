@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'input_page.dart';
+
 void main() {
   runApp(const BMICalculator());
 }
@@ -20,7 +22,7 @@ class BMICalculator extends StatelessWidget {
           titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
         ),
 
-        scaffoldBackgroundColor: Color(0xFF0A0E21),
+        scaffoldBackgroundColor: const Color(0xFF0A0E21),
       ),
       home: const InputPage(),
     );
