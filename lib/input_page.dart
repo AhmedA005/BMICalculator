@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'bottom_button.dart';
 import 'constants.dart';
 import 'icon_content.dart';
+import 'results_page.dart';
 import 'reusable_card.dart';
+import 'round_icon_button.dart';
 
 enum Gender { male, female }
 
@@ -128,17 +131,41 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     color: kInactiveCardColor,
                     cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Weight',
+                          'WEIGHT',
                           style: kLabelTextStyle,
                         ),
                         Text(
                           weight.toString(),
                           style: kNumberTextStyle,
                         ),
-                        const Row(
-                          children: [],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPress: () {
+                                setState(
+                                  () {
+                                    weight++;
+                                  },
+                                );
+                              },
+                            ),
+                            const SizedBox(width: 10),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPress: () {
+                                setState(
+                                  () {
+                                    weight--;
+                                  },
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -148,17 +175,42 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     color: kInactiveCardColor,
                     cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Age',
+                          'AGE',
                           style: kLabelTextStyle,
                         ),
                         Text(
                           age.toString(),
                           style: kNumberTextStyle,
                         ),
-                        const Row(
-                          children: [],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPress: () {
+                                setState(
+                                  () {
+                                    age++;
+                                  },
+                                );
+                              },
+                            ),
+                            const SizedBox(width: 10),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPress: () {
+                                setState(
+                                  () {
+                                    age--;
+                                    if (age < 1) age = 0;
+                                  },
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -167,12 +219,16 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: kBottomContainerColor,
-            margin: const EdgeInsets.only(top: 10),
-            width: double.infinity,
-            height: kBottomContainerHeight,
-          )
+          BottomButton(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ResultsPage(),
+                  ),
+                );
+              },
+              text: 'CALCULATE'),
         ],
       ),
     );
