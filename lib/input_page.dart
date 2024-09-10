@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'bottom_button.dart';
+import 'calculator_brain.dart';
 import 'constants.dart';
 import 'icon_content.dart';
 import 'results_page.dart';
@@ -221,10 +222,16 @@ class _InputPageState extends State<InputPage> {
           ),
           BottomButton(
               onTap: () {
+                CalculatorBrain calc = CalculatorBrain(height.toInt(), weight);
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ResultsPage(),
+                    builder: (context) => ResultsPage(
+                      bmiResult: calc.calculateBMI(),
+                      weightStatus: calc.getStatus(),
+                      interpretation: calc.getInterpretation(),
+                    ),
                   ),
                 );
               },

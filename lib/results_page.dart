@@ -5,7 +5,15 @@ import 'package:flutter/material.dart';
 import 'bottom_button.dart';
 
 class ResultsPage extends StatelessWidget {
-  const ResultsPage({super.key});
+  final String bmiResult;
+  final String weightStatus;
+  final String interpretation;
+
+  const ResultsPage(
+      {super.key,
+      required this.bmiResult,
+      required this.weightStatus,
+      required this.interpretation});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +31,7 @@ class ResultsPage extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               alignment: Alignment.bottomLeft,
               child: const Text(
                 'Your Results',
@@ -31,7 +39,7 @@ class ResultsPage extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(
+          Expanded(
             flex: 6,
             child: ReusableCard(
               color: kActiveCardColor,
@@ -40,17 +48,17 @@ class ResultsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'OVERWEIGHT',
+                    weightStatus,
                     style: kResultTextStyle,
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    '22.2',
+                    bmiResult,
                     style: kBMITextStyle,
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    'Hello, TEST',
+                    interpretation,
                     style: kBodyTextStyle,
                     textAlign: TextAlign.center,
                   ),
